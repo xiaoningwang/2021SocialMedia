@@ -1,8 +1,6 @@
 # 2021SocialMedia
 
 
-# 2021BayesianCourse
-
 ## 课程主页：https://xiaoningwang.github.io/teaching/2021-3-SocialMedia
 
 # ⚠️注意
