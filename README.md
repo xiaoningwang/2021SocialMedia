@@ -10,6 +10,8 @@
 
 ## 范文参考：[多总体比较：ANOVA和Kruskal-Wallis检验](https://mp.weixin.qq.com/s/4hPKtmN6TpuftZAJFrI2eg)
 
+## 如有截图需将图片放入figure文件夹
+
 
 # 作业步骤：
 
