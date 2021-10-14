@@ -1,0 +1,130 @@
+---
+title: "SI模型"
+author: "陈思源"
+date: "2021/9/17"
+output: word_document
+---
+
+# 1. 前言
+
+传染病的传播一直以来是生物学中一个备受关注的问题。近两年来，全球各地遭受到了新冠肺炎病毒的大范围侵袭，在此背景下，研究传染病的传播情况就显得尤为重要。
+
+流行病的数学模型（Mathematical models of epidemic diseases）一直以来都是数学建模中的一个不可忽视的课题。建立传染病的数学模型来描述传染病的传播过程，研究传染病的传播速度、空间范围、传播途径、动力学机理等问题，对指导对传染病的有效地预防和控制具有重要的现实意义。
+
+针对于不同传染性疾病的不同特点，医学上将传染病流行范围内的人群划分为四类，其中：
+
+1、S类（Susceptible），易感者，指缺乏免疫能力的健康人，与感染者接触后容易受到感染。
+
+2、E类（Exposed），暴露者，指接触过感染者但暂无传染性的人，适用于存在潜伏期的传染病。
+
+3、I类（Infectious），患病者，指具有传染性的患病者，可以传播给 S 类成员将其变为E类或I类成员。
+
+4、R类（Recovered），康复者，指病愈后具有免疫力的人。如果免疫期有限，仍可以重新变为S类成员，进而被感染；如果是终身免疫，则不能再变为 S类、E类或I类成员。
+
+常见的传染病模型按照传染病类型分为 SI、SIR、SIRS、SEIR 模型等。本文主要研究SI模型的数学模型和R实现。
+
+# 2. 流行病传播SI模型
+
+## 2.1. SI模型的适用范围
+
+由于SI模型仅考虑S类及I类成员，所以其适用范围相对比较狭窄，即只适用于只有易感者和患病者两类人群，且无法治愈的疾病，如HIV等。
+
+## 2.2. SI模型的数学假设
+
+设总人口为N，其中S和I分别为易感者和感染者的平均数量，则随机遇到一个人，他是易感者的概率为$\frac{S}{N}$。设每一个感染个体遇到一个易感个体时有效接触率为$\beta$（认为有效接触即可传播疾病），由于总共有I个感染者，则可以计算出新感染个体的总体平均率为$\beta\frac{SI}{N}$。可以得出一个I变化率的微分方程：
+
+\[\frac{dI}{dt}=\beta\frac{SI}{N}\]
+
+与此同时，易感者的数量以相同的速度下降：
+
+\[\frac{dS}{dt}=-\beta\frac{SI}{N}\]
+
+为了简化计算，定义易感者和感染者的平均比例分别为s和i，即：
+
+\[s=\frac{S}{N}\]
+\[i=\frac{I}{N}\]
+
+则上两式可写为：
+
+\[\frac{ds}{dt}=-\beta{si}\]
+\[\frac{di}{dt}=\beta{si}\]
+
+又因为人群中只存在易感和受感染两种情况，所以S+I=N与S+I=1等价，可以通过S=1-I消除S：
+
+\[\frac{di}{dt}=\beta{(1-i)i}\]
+
+这个方程也被称为逻辑增长方程。它可以用分离变量法来求解：
+
+\[i(t)=\frac{i_{0}e^{\beta{t}}}{1-x_{0}+x_{0}e^{\beta{t}}}\]
+
+其中$i_{0}$为I类人群占比的初值。
+
+
+# 3. SI模型的R实现
+
+设置每个病人、每天接触的人数的常数rio，分别为0.3、0.25、0.2、0.15、0.12，设置初期感染率为百万分之一(0.000001)，作图如下。
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+rm(list=ls()) 
+library(ggplot2)
+library(deSolve) 
+#调用deSolve包 
+#定义微分方程的形式 
+si_equations<-function(time,variables,parameters){ 
+  with(as.list(c(variables,parameters)),
+         { di<-rio*i*(1-i) 
+         return(list(c(di)))
+         })
+  }
+#设置病人的初始占比为百万分之一 
+initial_values<-c( i=0.000001 )
+#设置病情发展的时间为100天 
+time_values<-seq(0,100) 
+#设置参数值0.3 
+parameters_values<-c( rio=0.3 )
+si_values_1<-ode( y=initial_values, times=time_values, 
+                  func=si_equations, 
+                  parms=parameters_values )
+si_values_1<-as.data.frame(si_values_1) 
+#设置参数值0.25 
+parameters_values<-c( rio=0.25 )
+si_values_2<-ode( y=initial_values,
+times=time_values, 
+func=si_equations, parms=parameters_values )
+si_values_2<-as.data.frame(si_values_2) 
+#设置参数值0.2 
+parameters_values<-c( rio=0.2 )
+si_values_3<-ode( y=initial_values, times=time_values, 
+                  func=si_equations, 
+                  parms=parameters_values )
+si_values_3<-as.data.frame(si_values_3) 
+#设置参数值0.15
+parameters_values<-c( rio=0.15 )
+si_values_4<-ode( y=initial_values, times=time_values, 
+                  func=si_equations, 
+                  parms=parameters_values )
+si_values_4<-as.data.frame(si_values_4) 
+#设置参数值0.12 
+parameters_values<-c( rio=0.12 )
+si_values_5<-ode( y=initial_values, times=time_values, 
+                  func=si_equations, 
+                  parms=parameters_values )
+si_values_5<-as.data.frame(si_values_5) 
+#作图 
+with(si_values_1,{ plot(time,i,type="b",col="red",
+                       main="SI模型",
+                       ylab="Infected Rate") })
+with(si_values_2,{ lines(time,i,type="b",col="blue") })
+with(si_values_3,{ lines(time,i,type="b",col="green") })
+with(si_values_4,{ lines(time,i,type="b",col="orange") })
+with(si_values_5,{ lines(time,i,type="b",col="black") })
+legend("topleft",c("rio=0.3","rio=0.25","rio=0.2","rio=0.15","rio=0 .12"),
+       col=c("red","blue","green","orange","black"),
+       lty=1,bty="n")
+```
+
+从上图可以看出，SI模型对参数rio非常敏感。因而只要能够把每个病人每天接触的人数有效降低，传染病的传染速度就会变得非常慢，这也就意味着，只要防疫力度够大，控制住传染病是完全可能的。
