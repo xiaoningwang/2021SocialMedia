@@ -34,7 +34,7 @@
 
 ##三、r中生成简单的随机图
 
-  ```{r}
+```{r}
 #随机生成一个图
 random<-erdos.renyi.game(27,0.2,type=c("gnp", "gnm"),directed=F)
 #gnm<-sample_gnm(10,20,directed = F)#基于gnm生成图
