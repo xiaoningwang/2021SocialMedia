@@ -121,8 +121,10 @@
 
 参考文献：
 
-1、https://blog.csdn.net/luolang_103/article/details/82861739
+1、https://zhuanlan.zhihu.com/p/413274785
 
-2、https://blog.csdn.net/Michael_Well/article/details/106940413?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-5.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-5.no_search_link
+2、https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&dbname=CJFDLAST2020&filename=JSJA202007021&uniplatform=NZKPT&v=Ntl86ICshXN6L0Om7YNMpXcNSgvyrU3xbfJ6KVOGn7ikZHH%25mmd2FlFZty%25mmd2BR4fPtpEHMt
 
-3、https://wenku.baidu.com/view/8d76e3fa68dc5022aaea998fcc22bcd126ff4287.html
+3、https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&dbname=CJFD9899&filename=WGJG903.005&uniplatform=NZKPT&v=MzMid0cDtmdUx7zuJt7cECadA9ZOeyKNtYEvHDFAmb9Wz68b6fLZTWoAkb2vvd2D
+
+4、https://www.zhihu.com/question/480068075/answer/2152487497
