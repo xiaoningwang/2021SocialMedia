@@ -35,5 +35,7 @@ par(mfrow = c(1, 2))
 plot(g_rand_BA, layout = layout.circle)
 #度分布
 hist(degree(g_rand_BA))
-  (五)结论 1、并可以初步观察到它的节点度大致为幂律分布，即总体分布上具有很强异质性，符合无标度网络的一般特征：大部分节点的连接度较小，少部分节点具有很高的连接度，出现枢纽（hubs）节点。 2、BA模型生成的网络特点：①节点对间最短路径上的节点相对较少；②聚集性较低。 （六）参考文献 (1)Networks An introduction –M.E.J.Newman.978-0-19-920665-0 (Hbk.)
+  (五)结论 1、并可以初步观察到它的节点度大致为幂律分布，即总体分布上具有很强异质性，符合无标度网络的一般特征：大部分节点的连接度较小，少部分节点具有很高的连接度，出现枢
+  纽（hubs）节点。 2、BA模型生成的网络特点：①节点对间最短路径上的节点相对较少；②聚集性较低。 
+  （六）参考文献 (1)Networks An introduction –M.E.J.Newman.978-0-19-920665-0 (Hbk.)
 (2)Barabá, Albert S. Emergence of Scaling in Random Networks. Science, 1999, 286(5439):509-512.
