@@ -1,0 +1,81 @@
+---
+title: "28The SIRS model"
+author: "李林杰"
+date: "2021/10/15"
+output:
+  word_document: default
+  pdf_document:
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## 常见的传染病模型（四）——SIRS模型（The SIRS model）
+
+（一）背景
+----
+  研究发现，社会网络与流行病传播之间存在着一定的联系，主要体现在：流行病部分是通过人与人之间的接触进行传播的，这种接触模式可以用网络来表示。通过研究网络结构和疾病动态之间的联系，我们可以更好地理解流行病的传播模式。但要想完全了解疾病是如何在人群中传播的，我们需要考虑到大量生物学因素，这极其复杂，也并不现实。不过为了更好地应对流行病的传播，目前人们已经总结出一些基于疾病传播的简化模型，在许多情况下可以很好地预测流行病的传播范围和数量，指导人类有效预防和控制传染病。其中，常见的数学模型有：SI、SIR、SIS、SIRS模型。本文主要对SIRS模型（The SIRS model）进行介绍和讨论。
+
+（二）模型假设
+----
+  在流行病的数学模型表示中，对于流行病传播所涉及的人群，我们将其内部的动态变化简化为介于几个基本疾病状态之间的变化。包括三种疾病状态：易感(S)、感染(I)和康复(R)。
+  易感状态(S)是指未得病者，由于缺乏免疫能力或免疫能力低下，在与感染者接触时容易受到感染；感染状态(I)是指已经感染该疾病的人，在与易感者接触时，有可能将疾病其传染给他人；康复状态(R)是指感染疾病的人，由于免疫系统对病原体产生抵抗，在一定时间后从感染中恢复。
+
+注：在SIR模型中，考虑到一些疾病的感染者在一段时间后并不会康复，而是死亡，结合流行病学和数学的角度（前者认为无论是康复还是死亡，感染者都被有效地从疾病的潜在宿主库中移除，二者对疾病来说没有什么区别；后者认为在数学建模中，我们并不关心处于R状态的个体是康复还是死亡），R状态也可以表示感染个体的死亡。
+
+（三）具体模型
+----
+  SIRS模型是除了SIS模型外另一个包含再感染的模型。在该模型中，个体从感染中得到康复，并获得了与SIR模型同样的免疫力，但这种免疫力只是暂时的，经过一段时间后，个体就会失去免疫力，再次成为易感者。基于此，我们引入一个新的参数δ来代表个体失去免疫力的平均速度。其余变量继续引入之前三个模型的变量(s,x,r,β,γ)。  
+  s:易感者占总体人群的比例  
+  x:感染者占总体人群的比例  
+  r:康复者占总体人群的比例  
+  β:每个人在单位时间内平均与其他人接触的次数，即个体之间接触的平均速率  
+  γ:感染者康复（或死亡）的平均速率（相对恒定）  
+
+  那么这个模型的方程式可以表示为：  
+  易感个体的数量下降变化率的微分方程：
+$$\frac{\mathrm{d}s}{\mathrm{d}t} = \delta\times r-\beta\times s\times x$$
+  感染个体的数量变化率的微分方程：
+$$\frac{\mathrm{d}x}{\mathrm{d}t} = \beta\times s\times x-\gamma\times x$$
+  康复个体的数量变化率的微分方程：
+$$\frac{\mathrm{d}r}{\mathrm{d}t} = \gamma\times x-\delta\times r$$
+  每个个体必须是易感者、被感染者或康复者之一。
+$$s+x+r=1$$
+SIS模型中受感染个体的比例：
+![截图20211019203906](C:\Users\Pepsicola\Desktop\截图20211019203906.png)  
+与SI模型一样，SIS模型中的感染个体比例随着时间的推移呈逻辑曲线增长。然而，与SI模型不同的是，感染者的比例从未达到统一，而是趋向于一个中间值，在这个中间值上，感染率和恢复率是平衡的。  同样地，假设一开始所有群体均为易感者，我们得知随着时间的推移，感染个体比例逐渐增多，易感个体比例逐渐减少，康复个体比例也逐渐增多，当它们各自到达峰值之后个体比例会以相反的趋势在小范围内起伏变化一段时间，最后感染个体、易感个体、康复个体比例都趋于一个相对稳定的值。  
+下面是SIRS模型的流程图：  
+ ![截图20211019203923](C:\Users\Pepsicola\Desktop\截图20211019203923.png)
+ 
+  虽然我们可以采用线性稳定性分析和非线性动力学的一系列技巧来处理SIRS模型，但SIRS模型并不能仅仅通过分析来解决。一种更直接的方法是对微分方程进行数值积分，这表明SIRS模型有着丰富的行为，取决于三个参数的值，包括疾病在流行状态下持续存在、死亡以及在爆发和缓解期之间摇摆的行为。
+  
+（四）与其他三种模型的对比
+----
+  SI、SIR、SIS、SIRS模型是四个常见的传染病数学模型，其共同特征在于研究群体中都包括两类最基本的人群，即易感染者S与感染者I。区别在于SIR和SIRS模型进行了拓展，涉及到了疾病的恢复（或死亡）和再感染，更贴合现实情况或者更适合作为特定疾病的模型。其中SIR模型表示所涉及的群体对疾病具有较强的免疫力，不易被再次感染。
+  SI模型适用于某种传染病无法治愈，但不会致人死亡的情况，其应用范围很局限；SIS模型可用于描述患者反复多次得病的情况；SIR模型可表示感染者在治愈康复后获得终生免疫力；SIRS模型可用于描述康复后获得了暂时的免疫力。
+
+（五）拓展
+----
+  除了上述四种常见的流行病模型外，还有许多其他模拟特定类型疾病传播的流行病模型。这些模型引入了一些其他的状态，例如 "暴露 "状态，表示已经感染了某种疾病，但其感染尚未发展到可以传染给其他人的程度；或者在易感状态之前的初始免疫状态，通常用来代表新生儿所拥有的母源性免疫力。此外，有一些模型允许新的个体通过出生或移民进入人群，还有一些模型对从疾病中完全康复的人和那些已经康复但仍然可以将疾病传给他人的携带者做了区分。
