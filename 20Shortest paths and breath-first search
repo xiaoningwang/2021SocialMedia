@@ -1,0 +1,198 @@
+20Shortestpathsandbreath-firstsearch.Rmd
+---
+title: "最短路径和广度优先搜索"
+author: "巴妍2020213053021"
+date: "2021/10/20"
+output: word_document
+---
+
+## 一、简介：
+
+
+&emsp;&emsp;最短路径（Shortest paths）也称测地路径（geodesic paths），是连接网络中两个节点的边数最少的路径。最短距离（Shortest distance）也称测地距离（geodesic distance），就是指两节点的最短路径上的边的数目。广度优先搜索又名宽度优先搜索，其英文全称是breadth-first search（简称BFS），是寻找网络中两个节点之间最短距离的标准算法。
+
+
+## 二、BFS历史：
+
+
+&emsp;·1945年，KonradZuse在他关于Plankalkül编程语言的博士论文中（被拒）发明了BFS及其在寻找图的连通分量方面的应用。  
+&emsp;·1972年BFS算法被公开。  
+&emsp;·1959年，爱德华·f·摩尔(Edward F.Moore)用FBS找到了走出迷宫的最短路径。  
+&emsp;·1961年，c·y·李(C. Y. Lee)出版了FBS发展的一种线路路由算法。
+
+
+## 三、BFS的原理：
+
+
+
+### 1.BFS适用范围与限制：
+
+
+&emsp;（1）BFS适用于有向网络和无向网络。  
+&emsp;（2）如果有不止一条最短路径，BFS只能找到其中一条这样的路径，除非进行优化。
+
+
+### 2.BFS原理的形象描述：
+
+
+&emsp;&emsp;在网络中任找一节点记为s。一开始我们只知道s到自身的距离是0，到其他节点的距离是未知的。现在我们找到s的所有“邻居”，根据定义这些“邻居们”到s的距离是1，这是第一层。然后我们再次把范围扩大，向外层找。这些第一层的节点们到第一层节点的所有“邻居们”距离是2，（当然，已经访问过的就不算在内了）这是第二层。然后我们继续扩大范围向外层找。而这些第二层的节点们到第二层节点的所有“邻居们”（也同样除了我们已经拜访过的）的距离是3。以此类推，在每一次迭代中，我们增加1步，最后会遍历所有节点。作为寻找距离过程的必然结果，BFS也可以找到节点s所属的分量。实际上BFS就是网络中寻找分量的选择算法。
+
+
+
+## 四、BFS的实现
+
+
+
+### 1. FBS在计算机上实现的时间复杂度：
+
+
+&emsp;&emsp;当算法完成时，我们将得到一个数组，该数组包含s到网络中的每个节点的距离。首先，我们必须建立距离数组，每个节点都有一个元素。我们花在设置每个元素上的时间是固定的，所以我们花在设置距离数组上的时间是O(n)。对于算法本身，在每次迭代中，我们遍历所有（共n个）节点，寻找距离为d的节点。在经过它们的情况下，大多数节点都没有距离d，每个节点只花费O(1)。因此，每个迭代的基本成本是O(n)。总的迭代次数为r，在最坏的情况下，我们在算法的这部分花费的时间复杂度是O(rn)。  
+
+&emsp;&emsp;然而，当我们遇到距离为d的节点时，我们必须在那个节点上停下来，然后花额外的时间检查它的每个“邻居”，看看它们的距离是否未知，如果是，就给它们分配距离d + 1。如果我们假设这个网络是以邻接表的格式存储，那么我们能够以O (m / n)平均通过一个节点的邻居，在算法的整个过程我们在每个节点暂停，所以花费的总时间为n×O (m / n) = O (m)。因此，算法的总运行时间，包括设置，是O(n + rn + m)。r的值就是从源节点s到其他节点的最大距离。在最坏的情况下，这个距离等于网络的直径，最坏的情况直径是简单的n（此时网络只是一个由n个节点组成的链，一个接一个地串成一条线）。 
+
+&emsp;&emsp;因此，在最坏的情况下，我们的算法将有O(m + n2)的运行时间(我们省略了前n，因为我们只保留了领先的顺序项)。然而，这是非常悲观的。大多数网络的直径只在log n时增加，在这种情况下，我们的算法将在O(m + n log n)到前导阶的时间内运行。
+
+
+### 2. FBS的应用：解决最短路径问题
+
+
+#### （1）原理描述：
+
+
+&emsp;&emsp;到目前为止，我们所描述的广度优先搜索算法是寻找从一个节点到网络中所有其他节点的最短距离，但是它没有告诉我们特定的路径或者最短距离的路径。然而，只需要对算法做一个相对较小的修改，我们就可以计算出路径。诀窍是在原始网络的基础上构建另一个网络，这个有向网络表示最短路径。这个网络通常被称为最短路径树，尽管在大多数情况下它是一个有向无环图，而不是树。其思路如下：  
+
+&emsp;&emsp;在我们的算法开始时，我们创建了一个额外的网络，它将成为我们的最短路径树，拥有与原始网络相同的n个节点和相同的节点标签，但根本没有边。然后像以前一样从指定的源节点s开始广度优先搜索算法。该算法重复地将一个节点从队列中拉出来，并检查它的邻居，如前所述。但现在，每当某个节点i的邻居j被证明是之前未见过的节点时，其距离被记录为“未知”，我们不仅分配j距离并将其存储在队列中,我们也添加一个指示边缘最短路径树从节点j节点i。这有向边告诉我们,我们找到了j到邻居i的边。然而，节点i也会有一条通向它邻居的边，等等。因此，通过沿着这些有向边的序列我们最终得到了所有通往s的边，因此我们可以重建j到s之间的整个最短路径。每个节点都有一个有向边，指向宽度第一次搜索过程中所到达的节点。通过跟踪任意节点的有向边，我们可以找到一条最短路径。所以，当广度优先搜索完成后，最短路径树包含了我们需要的信息，我们需要找到包含s到s本身的组件中每个节点的实际最短路径。  
+
+&emsp;&emsp;一对节点之间可能有多条最短路径。对算法的另一个微小修改使我们能够处理这种情况。如果到达源节点s的路径在其长度上的某一点分叉为两个或多个方向，则在任意节点和源节点s之间存在多条最短路径。如果在这条路径上的某个地方有一个节点j，比如距离s 的d + 1处，在距离d处有多个邻居，就会发生这种情况。我们可以在最短路径树中记录这种情况，方法是将多条从j到每个相关邻居的有向边相加。这些有向边告诉我们，我们可以找到一条到节点s的最短路径，只要一步走到任何一个相邻的节点。为此，我们对算法进行如下修改：我们像以前一样从节点s开始执行广度优先搜索，并像以前一样从新发现的节点添加有向边到它们的邻居。但我们也增加了一个额外的步骤。如果在检查与其他节点距离为d的节点i的过程中，我们发现已经有确定距离的邻居j而且这个距离是d+1，但是我们同时也知道了有一条通过节点i的长度为d+1的路径，所以我们给最短路径树添加一条从j到i的路径。
+
+
+#### （2）代码实现：
+
+
+#include < iostream >  
+#include < vector >  
+#include < cstring >  
+#include < queue >
+ 
+using namespace std;
+ 
+class Graph{  
+private:  
+&emsp;int n;	//顶点个数  
+&emsp;bool *visited;	//数组，用于标记对应编号的点是否已经被访问过了  
+&emsp;int *deep;	//成员变量deep数组指针来记录他们的层数，起点就是第0层，当前这个节点的deep（深度，或者层数），就是上一个节点层数+1  
+&emsp;vector<int> *edges;	 //邻接表  
+public:  
+&emsp;Graph(int input_n){  
+&emsp;&emsp;n = input_n;  
+&emsp;&emsp;edges = new vector<int>[n];  
+&emsp;&emsp;visited = new bool[n];  
+&emsp;&emsp;memset(visited, 0, n);  
+&emsp;&emsp;deep = new int[n];  
+&emsp;&emsp;memset(deep, 0, sizeof(int)*n);  
+&emsp;}  
+&emsp;~Graph(){  
+&emsp;&emsp;delete[] edges;  
+&emsp;&emsp;delete[] visited;  
+&emsp;&emsp;delete[] deep;  
+&emsp;}  
+//插入，这里是无向图，所以两边都一样插入到各自的邻接表中  
+&emsp;void insert(int x, int y){  
+&emsp;&emsp;edges[x].push_back(y);  
+&emsp;&emsp;edges[y].push_back(x);  
+&emsp;}  
+//start_vertex：遍历的起点  
+&emsp;void bfs(int start_vertex){  
+//声明一个int型的队列  
+&emsp;&emsp;queue<int> bfs_queue;  
+//将起点加入队列，并设置为已访问  
+&emsp;&emsp;bfs_queue.push(start_vertex);  
+&emsp;&emsp;visited[start_vertex] = true;  
+//队列为空停止循环  
+&emsp;&emsp;while (!bfs_queue.empty()) {  
+//获取队首元素的编号，并输出  
+&emsp;&emsp;&emsp;int vertex=bfs_queue.front();  
+&emsp;&emsp;&emsp;cout<<vertex<<endl;  
+//将其从队列删除  
+&emsp;&emsp;&emsp;bfs_queue.pop();  
+//寻找vertex相邻的所以顶点，没被访问的就设置为已访问，并加加入队列  
+&emsp;&emsp;&emsp;for (vector<int>::iterator it = edges[vertex].begin(); it != edges[vertex].end(); it++ ){  
+&emsp;&emsp;&emsp;&emsp;if (!visited[*it]) {  
+&emsp;&emsp;&emsp;&emsp;&emsp;visited[*it] = true;  
+&emsp;&emsp;&emsp;&emsp;&emsp;bfs_queue.push(*it);  
+&emsp;&emsp;&emsp;&emsp;}  
+&emsp;&emsp;&emsp;}  
+&emsp;&emsp;}  
+&emsp;}    
+&emsp;void getLength(int start_vertex){  
+&emsp;&emsp;int length = 0;  
+&emsp;&emsp;bool tmp = false;  
+&emsp;&emsp;queue<int> bfs_queue;  
+&emsp;&emsp;bfs_queue.push(start_vertex);  
+&emsp;&emsp;visited[start_vertex] = true;  
+&emsp;&emsp;deep[start_vertex] = 0;  
+&emsp;&emsp;while (!bfs_queue.empty()) {  
+&emsp;&emsp;&emsp;int vertex = bfs_queue.front();  
+&emsp;&emsp;&emsp;bfs_queue.pop();  
+&emsp;&emsp;&emsp;for (vector<int>::iterator it = edges[vertex].begin(); it != edges[vertex].end(); it++ ) {  
+&emsp;&emsp;&emsp;&emsp;&emsp;if (!visited[*it]) {  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;visited[*it] = true;  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;deep[*it] = deep[vertex] + 1;  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;bfs_queue.push(*it);  
+&emsp;&emsp;&emsp;&emsp;}  
+&emsp;&emsp;&emsp;}  
+&emsp;&emsp;&emsp;tmp = false;  
+&emsp;&emsp;}  
+&emsp;}  
+&emsp;int getDeep(int vertex){  
+&emsp;&emsp;return deep[vertex];  
+emsp;}  
+};  
+int main(){  
+&emsp;int n, m, k;  
+&emsp;int x, y;  
+&emsp;cout<<"请分别输入顶点数、边数和起点的编号:"<<endl;  
+&emsp;cin >> n >> m >> k;  
+&emsp;Graph g(n);  
+&emsp;cout<<"请分别输入无向边（如1、2之间有一条无向边，就输入1 2）:"<<endl;  
+&emsp;for (int i = 0; i < m; ++i) {  
+&emsp;&emsp;cin >> x >> y;  
+&emsp;&emsp;g.insert(x-1, y-1);  
+&emsp;}  
+&emsp;g.getLength(k-1);  
+&emsp;cout<<"按编号从小到大，分别输出起点到各顶点最少经过几条边："<<endl;  
+&emsp;for (int j = 0; j < n; j++) {  
+&emsp;&emsp;cout<<g.getDeep(j)<<endl;  
+&emsp;}  
+&emsp;return 0;  
+}
+
+
+#### （3）运行结果：
+
+
+请分别输入顶点数、边数和起点的编号:  
+10 10 1  
+请分别输入无向边（如1、2之间有一条无向边，就输入1 2）:  
+1 2  
+1 5  
+4 5  
+2 4  
+2 3  
+3 7  
+3 6  
+6 8  
+8 9  
+9 10  
+按编号从小到大，分别输出起点到各顶点最少经过几条边：  
+0  
+1  
+2  
+2  
+1  
+3  
+3  
+4  
+5  
+6  
+Press any key to continue
