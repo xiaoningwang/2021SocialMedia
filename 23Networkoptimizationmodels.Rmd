@@ -27,14 +27,14 @@ output: word_document
 
 最大流问题就是要讨论如何充分利用装置的能力，使得运输的流量最大，以取得最好的效果，网络中一个可行流f*，使其流量v(f)达到最大， 这种流f称为最大流，最大流问题可以建立如下形式的线性规划数学模型：
 
-\begin{array}{cl}
+$$\begin{array}{cl}
 \max V=f^{*} & \\
 s . t\left\{\begin{array}{ll}
 \sum f_{i j}-f_{j i}=0 & (i \neq s, t) \\
 \sum f_{s j}-f_{j s}=v(f) & (i=s) \\
 \sum f_{i j}-f_{j i}=-v(f) & (i=t)
 \end{array}\right.
-\end{array}
+\end{array}$$
 
 解决最大流问题用到增广路径算法即Fold-Fulkerson算法。
 
