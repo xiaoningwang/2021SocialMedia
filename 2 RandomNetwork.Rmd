@@ -72,9 +72,9 @@ mean_distance(random)#计算平均路径长度
 transitivity(random)#计算聚类系数
 
 ```
-![image](figure/1.png)
-![image](figure/2.png)
-![image](figure/3.png)
+![image](figure/xrq_1.png)
+![image](figure/xrq_2.png)
+![image](figure/xrq_3.png)
 
 ### 五、总结与反思
 
