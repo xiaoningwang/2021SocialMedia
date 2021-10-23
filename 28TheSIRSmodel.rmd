@@ -46,7 +46,7 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 （三）模型建构
 ----
 SIRS模型的流程图:  
-![]
+![model](https://raw.githubusercontent.com/pepsicolali/2021SocialMedia/main/figure/SIRS%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
   SIRS模型是除了SIS模型外另一个包含再感染的模型。在该模型中，个体从感染中得到康复，并获得了与SIR模型同样的免疫力，但这种免疫力只是暂时的，经过一段时间后，个体就会失去免疫力，再次成为易感者。基于此，我们引入一个新的参数δ来代表单位时间内个体失去免疫力的平均速率。其余变量继续引入之前三个模型的变量(N,S,X,R,s,x,r,β,γ)。  
 变量解释：  
 n:总人口
