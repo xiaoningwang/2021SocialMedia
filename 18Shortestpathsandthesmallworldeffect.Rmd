@@ -1,0 +1,361 @@
+---
+title: "最短路径和小世界效应"
+author: "刘芮荧"
+date: "2021/10/19"
+output:
+  word_document: default
+  html_document: default
+---
+
+#最短路径和小世界效应
+
+
+#一.简介
+
+#(一)最短路径
+
+ 网络中两个节点i和j之间的最短路径也称为测地路径，是指连接这两个节点的边数最少的路径。如果两个节点间没有任何连通路径，则这两个节点间没有最短路径，在这种情况下，我们一般说这两个节点的距离是无
+ 穷大的。另外，最短路径不会经过节点自身。
+ 
+#（二）小世界效应
+
+小世界效应是一种观察结果，即网络中大多数顶点对之间的测地线或最短路径距离很小，即使在具有数十亿个顶点的网络中，例如整个世界人口的熟人网络，通常也只有几步。斯坦利·米尔格拉姆（StanleyMilgram）
+在20世纪60年代进行了信件传递实验。在该实验中，人们被要求通过社交网络将信件从最初的持有者传递给远方的目标人。实验结果发现到达目标的信件只需非常少的步骤，平均大约六步。这个实验是小世界效应的一个
+较好的证明。
+
+#二.理论基础及验证原理
+
+#（一）最短路径求解模型——广度优先算法
+
+网络中求解最短路径的标准算法是广度优先算法。一次运行广度优先搜索算法可以找到从单个源顶点s到与s相同的网络组件中的每个其他顶点的最短（测地）距离。广度优先算法适用于有向和无向网络，如果有多条最短
+路径，它可以找到所有最短路径。
+
+#（1）基本原理
+
+最初我们只知道s与自身的距离为0，与所有其他顶点的距离未知。现在我们找到了s的所有邻居，根据定义，它们与s的距离为1。然后我们找到这些顶点的所有邻居。排除我们已经访问过的顶点，这些顶点的距离必须为2。
+他们的邻居，不包括我们已经访问过的邻居，距离是3，以此类推。在每次迭代中，我们增长一步访问的顶点集。
+
+#（二）对小世界效应验证
+
+我们可以使用随机图模型，通过检查模型中网络直径的行为来阐明这种效应是如何产生的。
+
+#（1）用随机图初步验证
+
+网络的直径是网络相同组件中任意两个顶点之间的最长测地距离。已知当随机图的顶点数量为n时，随机图的直径为$lnn$。由于$lnn$常是一个相对较小的数字，即当n较大时。其原理也比较简单，c为任意给定的平均度，
+随机图中距随机选择顶点s步的平均顶点数为$c^s$，因为这个数字随着s呈指数增长，所以在到达的顶点数等于整个网络中的顶点总数之前，不需要很多这样的步骤。当$c^s$渐进于n或s渐进于$lnn/lnc$时会发生这种情
+况。在这一点上，粗略地说，每个顶点距离我们的起点在s步以内，这意味着网络的直径大约为$lnn/lnc$。尽管正如我们所说，随机图不是大多数真实网络的精确模型，但这被认为是大多数网络中小世界效应背后的基本
+机制。
+
+#（2）小世界本质计算
+
+一种方法是考虑两个不同的起始顶点I和J，只要我们停留在顶点s和t步数都远小于n的区域内，那么从它们开始的顶点s和t步数的平均数将分别等于$c^s$和$c^t$。在下面的计算中，我们只考虑在极限n中保持小于n阶的
+配置$n→∞$以满足这个条件。我们考虑的情况在图12.6中描述，其中两个顶点i和j每个都由一个“球”或邻域包围，这些“球”或邻域包括所有顶点，其距离分别达到和包括s和t。如果如虚线所示，一个邻域的“曲面”（即最
+远的顶点）与另一个邻域的曲面之间存在一条边，则可以直接显示具有较大s或t（或两者）的任意一对邻域的曲面之间也存在一条边。反过来说，如果我们的邻域曲面之间没有边，那么任何较小的邻域之间也没有边，这
+意味着i和j之间的最短路径的长度必须大于$s+t+1$。反之亦然，比$s+t+1$长的最短路径意味着曲面之间没有边。因此，表面之间没有边缘是i和j之间的距离$d_{ij}$大于$s+t+1$的充分必要条件。这反过来意味着概
+率$P（d_{ij}>s+t+1）$等于两个表面之间没有边的概率。在文中给出的参数中，我们考虑两个随机选择顶点i和j的距离s和t中的顶点集。如果一个邻域曲面上的任何顶点与另一个邻域曲面上的任何顶点之间存在一条边
+（虚线），则在长度为$s+t+1$的i和j之间存在一条路径。平均有$c^s×c^t$对顶点，使得每个曲面上都有一个顶点，并且每对顶点以概率$p=c/(n-1)$趋近于$c/n$（假设n较大）或不具有概率$1-p$。因此，两个表面
+间没有边的概率为：
+                 $P(d_{ij}>s+t+1)={(1-p)}^{c^{t+s}}$
+              
+两边取对数并近似不等式精确为$n→ ∞$，在这个限度内：
+                    $P(d_{ij}>t)=exp(-c^n/t)$
+               
+最后，经过一系列推论得到直径表达式
+                        $l=A+lnn/lnc$
+               
+直径对n的对数依赖性为小世界效应提供了一些解释。即使在一个拥有近70亿居民的网络中，如全世界的熟人网络（在撰写本文时），$lnn/lnc$的值也可能非常小。假设每个人都有大约一千个熟人，我们会得到:
+                             $l=3.3$
+
+
+#三.案例及C语言实现
+
+#(一)最短路径
+
+我们创建一个由n个元素组成的数组来存储每个顶点到源顶点s的距离，并将顶点s到自身的距离初始设置为零，而所有其他顶点到s的距离未知。例如，可以通过将数组的相应元素设置为−1，或一些在现实中永远不会出现
+的类似值。我们还创建了一个距离变量d来跟踪我们在广度优先搜索过程中的位置，并将其初始值设置为零。
+
+#（1）基本原理
+
+1.将源顶点的标签放置在队列的第一个元素中，将读取指针设置为指向它，将写入指针设置为指向第二个元素，即第一个空元素。在距离数组中，将顶点s到自身的距离记录为零，将到所有其他顶点的距离记录为“未知”
+（例如，通过将距离数组的相应元素设置为-1或某些类似的不可能值）。
+2.如果读指针和写指针指向队列数组的同一元素，则算法完成。否则，从读取指针指向的元素中读取顶点标签，并将该指针增加1。
+3.通过查看距离数组，找到该顶点的距离d。
+4.依次遍历每个相邻顶点，并在距离数组中查找其距离。如果它有一个已知的距离，别管它。如果它有一个未知的距离，则将其指定为距离$d+1$，将其标签存储在写指针指向的元素的队列数组中，并将写指针增加1。
+5。重复步骤2。
+
+#（2）代码实现
+
+1.建立自定义网络矩阵
+```{Rcpp}
+#include <string.h> 
+#include <stdio.h>
+#include<malloc.h> 
+#define Node_Num  7												// 顶点的数量
+char pNode[Node_Num]={'A', 'B', 'C', 'D', 'E', 'F', 'G'};		// 用于保存顶点的值
+int sNode[Node_Num][Node_Num];									// 用于表示各边的关系
+
+#define INT_MAX   65535
+
+#define sNode_Num  	9			// 9条边 
+const int s_char[sNode_Num][3]={ 
+				{'A','B', 5}, 	{'A','C', 1}, 
+				{'B','D', 1}, 	{'B','A', 5}, 
+				{'C','D', 3}, 
+				{'D','E', 6},   {'D','F', 4}, 
+				{'E','G', 1}, 
+				{'F','C', 2}};
+void Create_Matrix()
+{
+	int i = 0, start, end;
+	memset(sNode, INT_MAX, sizeof(sNode));	//初始化所有边为最大 
+	
+	for(i = 0; i<sNode_Num; i++){
+		// 获取当前边的起始点
+		start = s_char[i][0] - 'A';
+		end = s_char[i][1] - 'A'; 
+		sNode[start][end] = s_char[i][2];
+	}
+	printf("\n网矩阵创建完毕\n\n");
+}
+```
+
+2.将建立好的网络矩阵输出
+```{Rcpp}
+void Print_Matrix(void)
+{
+	int start,end;
+	printf("    ");
+	for(start = 0; start<Node_Num; start++) 
+		printf("%c   ", pNode[start]);
+		
+	for(start = 0; start<Node_Num; start++){
+		printf("\n%c   ", pNode[start]);
+		for(end = 0; end<Node_Num; end++){
+			printf("%2d  ", sNode[start][end]);
+		}
+	}
+	printf("\n\n网矩阵打印完毕\n");	
+}
+```
+
+3.创建栈连接每一个节点
+```{Rcpp}
+// 实现一个 10 个元素的循环队列 
+#define Queue_Size  10
+typedef struct List{
+	char node;
+	struct List *next;
+	struct List *pre;
+}List;
+
+// 定义循环队列的头部和尾部 
+List * list_head = NULL;
+List * list_tail = NULL;
+
+// 往list后添加新的节点，list为队尾节点 
+List * Insert_pNode(List *list){
+	List *p;
+	if(list ==  NULL){
+		return NULL;
+	}
+	p=(List *)malloc(sizeof(List));
+	p->node = 0;
+	p->next = list->next;
+	p->pre = list->next->pre;
+	list->next->pre = p; 
+	list->next = p;
+	return p; 
+}
+
+List * New_List_Queue(int size){
+	List * list;
+	int i; 
+	if(size == 0)
+		return NULL;
+	
+	printf("\n%s -- size=%d\n",__func__, size);
+	
+	// 创建头节点，单向循环链表头节点指向自已 
+	list = (List *)malloc(sizeof(List));
+
+	list->node = 0;
+	list->next = list;
+	list->pre = list;
+	list_head = list;	//队头指向 list
+	list_tail = list;	//队尾指向 list 
+
+	//创建剩余的节点
+	for(i = 0; i<size-1; i++){
+		list = Insert_pNode(list);
+	}
+	printf("\n列表创建完毕\n");
+	//创建完毕，返回list 的头结点，即 list->next，因为list即最后一个节点
+	return list->next; 
+} 
+
+void Delete_List_Queue(List *list){
+	List *p;
+	while(list->next != list){
+		p = list->next;
+		list->next = p->next;
+		list->next->pre = p->pre;
+		printf("\n释放ListQueue：%p", p);
+		free(p);
+	}
+	printf("\n释放ListQueue：%p\n\n", list);
+	free(list);
+}
+
+//向队尾指针添加  Node节点 
+void Push_Node(char node){
+	List *p = NULL;
+	
+	// 如果队列满了，则自动扩充队列
+	if(list_tail == list_head && list_head->node != 0){
+		// 找到list_head 的前一个节点
+		p = list_head;
+		while(p->next != list_head) p = p->next; 
+		// 在队尾插入节点，返回队尾指针 
+		list_tail = Insert_pNode(p);
+		printf("\n队列容量已满，增加一个元素, list_tail=%p, list_head=%p\n", list_tail, list_head); 
+	} 
+	
+	if(list_tail != NULL){
+		printf("\n插入元素 %c, list_head(%p), list_tail(%p)",node, list_head,list_tail );
+		list_tail->node = node;
+		list_tail = list_tail->next;
+	}
+}
+
+//队列：从队头取出一个 Node节点，队列无数据时，返回NULL，即先进先出 
+char Pop_Queue(){
+	char node;
+	if(list_head != NULL && list_head->node != 0){
+		node = list_head->node;
+		list_head->node  = 0;
+		list_head = list_head->next;
+		printf("\n弹出元素 %c",node); 
+		return node;
+	}
+	return 0;
+} 
+
+//栈: 从队尾取出一个 Node节点，队列无数据时，返回NULL，即先进后出 
+char Pop_Stack(){
+	char node;
+	if(list_tail->pre != NULL && list_tail->pre->node != 0){
+		node = list_tail->pre->node;
+		list_tail->pre->node = 0;
+		list_tail = list_tail->pre; 
+		printf("\n弹出元素 %c",node); 
+		return node;
+	}
+	return 0;
+}
+```
+
+4.实现网络矩阵广度优先算法，并将求解出的最短路径保存
+```{Rcpp}
+// 网矩阵广度遍历算法 
+void BFS_Matrix()
+{
+	char cur, next; 
+	char find_list[Node_Num], *f = find_list, i, j;
+
+	// 分配二级指针内存，用于保存最短路径，及父节点 
+	int **sh =  (int **)malloc(sizeof(int *) * Node_Num);
+	for(i = 0; i<Node_Num; i++){
+		*(sh+i) = (int *)malloc(sizeof(int) * 3);
+		(*(sh+i))[0] = 0;
+		(*(sh+i))[1] = 0;
+		(*(sh+i))[2] = INT_MAX;	// 初始距离是最大 
+	}
+	
+	// 先将 'A' 入队列 
+	Push_Node(pNode[0]);
+	*f++ = pNode[0];	// 记录 A 已访问过 
+	sh[0][0] = pNode[0];
+	sh[0][1] = pNode[0];
+	
+	// 只要栈头指针指向的数据不为0，说明队列 不为空 
+	while(list_head->node != 0){
+		cur = Pop_Queue();	// 出队列 
+		
+		// 找到下一个未访问过的节点
+		for(i =0; i<Node_Num ; i++){
+			if( sNode[cur-'A'][i] > 0){
+				next = 'A' + i;
+				printf("\n当前%c->%c = %d",cur, next, sNode[cur-'A'][i]);
+				// 找到节点，判断新节点是否访问过，如果没访问过就放入队列 
+				for(j=0; j<Node_Num; j++){
+					if(find_list[j] == next)
+						break;
+					
+		 			// 如果到最后一个还不匹配，说明没访问过 
+		 			if(  j == Node_Num-1){
+		 				Push_Node(next);
+						*f++ = next;	// 记录 next已访问过 
+			 		}
+			 	}
+			 	
+		 		printf("\n当前节点%c 的距离 %d, 父节点%c 最短距离：%d\n", next, sNode[cur-'A'][next-'A'],cur,  sh[cur-'A'][2]);
+		 		// 更新最短路径 =  sh[cur-'A'][2] + sNode[cur-'A'][next-'A']
+		 		if(next != 'A'){
+		 			if( sh[cur-'A'][2] == INT_MAX ){
+						sh[next-'A'][0] = next;
+						sh[next-'A'][1] = cur;
+						sh[next-'A'][2] = sNode[cur-'A'][next-'A'];
+					}else if(sNode[cur-'A'][next-'A'] + sh[cur-'A'][2] < sh[next-'A'][2]){
+							sh[next-'A'][0] = next;
+							sh[next-'A'][1] = cur;	
+							sh[next-'A'][2] = sNode[cur-'A'][next-'A'] + sh[cur-'A'][2];
+					}
+			 	
+		 		}	
+				
+			}
+		}
+	}
+	printf("\n\n网矩阵广度遍历结束, 遍历顺序为：\n");
+	for(i=0; i<Node_Num; i++)
+		printf("%c--> ", find_list[i]); 
+	printf("\n\n"); 
+	
+	printf("\n\n最短距离为：\n");
+	for(i=0; i<Node_Num; i++)
+		printf("当前结点：%c，父结点：%c， 当前到'A'最短距离：%d\n", sh[i][0], sh[i][1], sh[i][2]==INT_MAX?0:sh[i][2]); 
+	printf("\n\n");
+}
+```
+
+5.在主程序中实现创造网络矩阵并用广度优先算法求出最短路径矩阵。
+```{Rcpp}
+int main()
+{	
+	// 初始化栈链表 
+	List * list = New_List_Queue(Queue_Size);
+	
+	// 创建网矩阵 
+	Create_Matrix();
+	// 找印网矩阵
+	Print_Matrix();
+	// 网矩阵的广度遍历 
+	BFS_Matrix();
+	
+	return 0;	 
+}
+
+```
+#四.局限
+
+#（1）随机图验证的局限性
+
+一旦$c^s$与n可比，结果就必须分解，因为距离s处的顶点数显然不能超过整个图形中的顶点数。
+  
+#（2）小世界本质计算局限性
+
+尽管这一计算让我们对小世界效应的本质有了一些了解，但这并不是完整的解释。正如我们现在所讨论的，作为真实社会网络模型的随机图显然存在许多问题。
+
+#五.引用
+
+Networks An introduction
