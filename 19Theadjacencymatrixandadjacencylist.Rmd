@@ -18,23 +18,36 @@ output: html_document
 第三步：根据不同图对应的邻接矩阵表示法得到不同的邻接矩阵
 （2）分类：（以下代码为节点链接图的实现）
 1）无向图：
+
+```{r}
 library(igraph)
 g <- graph(c(1,2,1,5,2,3,2,4,2,5,3,4,4,5),directed = FALSE) ;plot(g)
+
+```
+
 2）有向图：
+```{r}
 actors <- data.frame(name=c("1", "2", "3", "4", "5"),
 age=c(48,33,45,34,21));
 relations <- data.frame(from=c("1", "1", "2", "2","3", "3","4"),to=c("2", "3", "3", "4", "4", "5","5"))
 g <- graph_from_data_frame(relations, directed=TRUE, vertices=actors)
+```
 plot(g)
 3）无向加权图：
+```{r}
 g <- graph(c(1,2,1,5,2,3,2,4,2,5,3,4,4,5),directed = FALSE) ;
 g <- set_graph_attr(g,'weight',m[,3]) 
 graph_attr(g,'weight')#得到g的权
 plot(g,edge.label = graph_attr(g,'weight'))
+```
+
 4）有向加权图：
+```{r}
 g <- set_graph_attr(g,'weight',m[,3]) 
 graph_attr(g,'weight')#得到g的权
 plot(g,edge.label = graph_attr(g,'weight'))
+```
+
 （3）邻接矩阵的优缺点：
 1) 优点：
 如果希望在给定的一对顶点之间添加或删除边，可以使用邻接矩阵快速实现。
@@ -74,12 +87,11 @@ b. 当我们需要快速遍历一个顶点的邻接点时，邻接列表就有�
 4.实例：
 以下为用简单的例子解释相关的概念。
 假设有五个人，分别叫Alice、John、Julie、Gina、Susa。他们互相之间的关系程度（一定时间内互相打电话的次数）用取值范围从1到5的变量relationship来表示，数值越大表示关系越亲密。
-以下图为我的phone.call.csv数据文档截图
-![](C:/Users/lenovo/Desktop/lianghuige1.png "lianghuige1")
+
 ```{r}
 library(igraph)
 library(dplyr)
-data<-read.csv("C:/Users/lenovo/Desktop/phone.call.csv")
+phone.call<-read.csv("C:/Users/lenovo/Desktop/phone.call.csv")
 head(phone.call)##由数据可见，这是一个由source（一个人）指向destination（目标即另一个人），以亲密程度为权重的有向加权网络。
 ```
 ```{r}
@@ -89,21 +101,17 @@ name<-data.frame(c(phone.call$source,phone.call$destination))
 nodes<-name%>%distinct()%>%##提取独特的行观测量
 mutate(location=c("western","western","central","nordic","southeastern"))
 colnames(nodes)<-c("label","location")##我们创建一个新变量location，表示这些每个节点的地理位置
-```
-```{r}
+
 edges<-phone.call%>%
     rename(from=source,to=destination,weight=n.call)##下面来看边列表。数据集phone.call的前两列分别表示了边出发和终结的节点。所以这个数据集就是边列表的形式，第三列n.call可以作为边的权重。
-library(igraph)##创建igraph对象
-
-net_pc<-graph_from_data_frame(
-   d=edges,vertices=nodes,
-   directed=TRUE)
+#edge <- merge(edges,nodes,by.x="from",by.y = "label",all.x = TRUE)
+net_pc <- graph_from_data_frame(d=edges,directed=TRUE)
 
 net_pc##可以看到输出的igraph对象
 ##运行显示结果解释：329e987是这个对象的名称，DNW- n m --表示这是一个有向（D）、有命名（N）且加权（W）的网络，它有n个节点和m条边。它具有的节点属性是name , location ，具有的边属性是weight
 
 V(net_pc)
-V(net_pc)$location 
+#V(net_pc)$location 
 ##我们可以通过V()和E()对节点和边的属性进行访问
 ```
 ```{r}
@@ -116,7 +124,8 @@ as_adjacency_matrix(net_pc, attr="weight")
 plot(net_pc)##运行出节点链接图
 write.csv(phone.call, "phone.call.csv")
 ```
-
+以下图为五人关系图
+![](figure/lianghuige1.png)
 5.后记：
 （1）由分别对邻接矩阵和邻接表优缺点的分析总结出的对比如下：
 1）密集图且顶点较少、无权值的图结构适宜用邻接矩阵来表示，稀疏图且顶点较多、无权值的图结构适宜用邻接列表来表示；
