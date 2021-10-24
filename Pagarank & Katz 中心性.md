@@ -18,7 +18,7 @@ $$
 
 ###### (1-1)   
 
-​               <img src="D:\zll_picture1.png" alt="图片" style="zoom:40%;" />             <img src="D:\zll_picture2.png" alt="图片" style="zoom:40%;" /> 					
+​ ![picture1](https://github.com/linlinzhao-moon/2021SocialMedia/blob/main/figure/zll_picture1.png)		![picture2](https://github.com/linlinzhao-moon/2021SocialMedia/blob/main/figure/zll_picture2.png)	
 
 ###### (1-2)
 
@@ -386,9 +386,9 @@ show_graph(small_graph, 'circular_layout')
 
 运行结果如下：
 
-![tu](D:\zll_picture3.png)
+![picture3])(https://github.com/linlinzhao-moon/2021SocialMedia/blob/main/figure/zll_picture3.png)
 
-![t](D:\zll_picture4.png)
+![picture4](https://github.com/linlinzhao-moon/2021SocialMedia/blob/main/figure/zll_picture4.png)
 
 ### (四)参考资料：
 
