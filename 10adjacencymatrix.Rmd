@@ -59,7 +59,7 @@ P.add_edge(1, 3)
 P.add_edges_from([(3, 5), (3, 6), (6, 7)])
 nx.draw(P)
 plt.show()
-![image](figure/有向图绘制.bmp)
+![image](figure/有向图绘制.png)
 
 #(四)总结
 ##优势
