@@ -14,17 +14,25 @@ Preferential Attachment
 在R中，可直接使用igraph包中的barabasi.game函数模拟生成BA随机网络。 参考以下示例，生成节点数n=100，每个新节点增加m=1条边。
 knitr::opts_chunk$set(echo = TRUE)
 library(igraph)
-```{r setup}
-knitr::opts_chunk$set(echo = TRUE)
-library(igraph)
+## Warning: 程辑包'igraph'是用R版本4.1.1 来建造的
+## 
+## 载入程辑包：'igraph'
+## The following objects are masked from 'package:stats':
+## 
+##     decompose, spectrum
+## The following object is masked from 'package:base':
+## 
+##     union
 set.seed(42)
 g.ba<-igraph::barabasi.game(100,directed = FALSE)
 plot(g.ba,layout=layout.circle(g.ba),vertex.label=NA,
      vertex.size=20)
 hist(degree(g.ba),col="lightblue",
      xlab="Degree",ylab="Frequency",main="")
-summary(degree(g.ba))
-```
+     summary(degree(g.ba))
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    1.00    1.00    1.98    2.00    9.00
+
   (五）性质
   1、并可以初步观察到它的节点度大致为幂律分布，即总体分布上具有很强异质性，符合无标度网络的一般特征：大部分节点的连接度较小，少部分节点具有很高的连接度，出现枢
   纽节点。
