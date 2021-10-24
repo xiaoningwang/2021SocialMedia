@@ -386,7 +386,7 @@ show_graph(small_graph, 'circular_layout')
 
 运行结果如下：
 
-![picture3])(https://github.com/linlinzhao-moon/2021SocialMedia/blob/main/figure/zll_picture3.png)
+![picture3](https://github.com/linlinzhao-moon/2021SocialMedia/blob/main/figure/zll_picture3.png)
 
 ![picture4](https://github.com/linlinzhao-moon/2021SocialMedia/blob/main/figure/zll_picture4.png)
 
