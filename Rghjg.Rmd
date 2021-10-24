@@ -1,0 +1,59 @@
+---
+title: '07221447'
+author: "梁会格"
+date: "2021/7/22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(igraph)
+library(dplyr)
+data<-read.csv("C:/Users/lenovo/Desktop/phone.call.csv")
+head(phone.call)##由数据可见，这是一个由source指向destination，以通话次数为权重的有向加权网络。
+```
+```{r}
+###从邻接矩阵建立网络对象
+library(tidyverse)
+name<-data.frame(c(phone.call$source,phone.call$destination))
+nodes<-name%>%distinct()%>%##提取独特的行观测
+mutate(location=c("western","western","central","nordic","southeastern"))
+colnames(nodes)<-c("label","location")##我们创建一个新变量location，表示这些节点的地理位置
+```
+
+```{r}
+edges<-phone.call%>%
+    rename(from=source,to=destination,weight=n.call)##下面来看边列表。数据集phone.call的前两列分别表示了边出发和终结的节点。所以这个数据集就是边列表的形式，第三列n.call可以作为边的权重。
+library(igraph)##现在可以创建一个igraph对象了
+
+net_pc<-graph_from_data_frame(
+   d=edges,vertices=nodes,
+   directed=TRUE)
+
+net_pc##可以看到输出的igraph对象
+##329e987是这个对象的名称，DNW- 16 18 --表示这是一个有向（D）、有命名（N）且加权（W）的网络，它有16个节点和18条边。它具有的节点属性是name , location ，具有的边属性是weight
+
+V(net_pc)
+V(net_pc)$location 
+##我们可以通过V()和E()对节点和边的属性进行访问
+```
+
+```{r}
+###提取边列表
+as_edgelist(net_pc, names=T) 
+###提取邻接矩阵
+as_adjacency_matrix(net_pc, attr="weight")
+```
+```{r}
+plot(net_pc)
+write.csv(phone.call, "phone.call.csv")
+```
+
+
+
+
+
+ 
