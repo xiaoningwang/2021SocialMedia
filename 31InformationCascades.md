@@ -8,6 +8,8 @@
 
 Twitter上信息级联的例子。节点表示Twitter账户，顶部节点对应于第一次发布某个短URL的账户。这些链接对应着转发它的人。这些级联捕获了信息的异构性av- alanches:大多数url根本没有被转发，在图中显示为单个节点。
 
+<img width="275" alt="截屏2021-10-24 下午4 29 04" src="https://user-images.githubusercontent.com/80139302/138587521-308c81f8-ccb5-4369-a75a-8e439a622b56.png">
+
 （二）、介绍
 
 
@@ -166,6 +168,8 @@ Require: Diffusion graph G(V, E ), set of initial activated nodes A0, acti- va
 17:   A∞ = ∪i A j ;
 18: Return A∞;
 
+<img width="804" alt="Step" src="https://user-images.githubusercontent.com/80139302/138587531-82a27d36-90e4-4da3-a2e8-74a8adbf3b3b.png">
+
 
 （独立级联模型(ICM)仿真）
 边上的数字表示权重pv,w。当存在不等式时，检查激活条件。左边的数字为产生的随机数，右边的数字为权重pv,w。
@@ -180,6 +184,7 @@ Require: Diffusion graph G(V, E ), set of initial activated nodes A0, acti- va
 3.通过降低一个节点(pv,w)的激活概率，从而减少激活其他节点的机会。
 
 ————————————————
+
 参考文献：
 
 1、Albert-Laszlo Barabasi - Network Science 
