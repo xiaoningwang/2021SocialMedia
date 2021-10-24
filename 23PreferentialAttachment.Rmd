@@ -27,12 +27,13 @@ set.seed(42)
 g.ba<-igraph::barabasi.game(100,directed = FALSE)
 plot(g.ba,layout=layout.circle(g.ba),vertex.label=NA,
      vertex.size=20)
+     ![image](figure/朱良栋正-2.png)
 hist(degree(g.ba),col="lightblue",
      xlab="Degree",ylab="Frequency",main="")
+     ![image](figure/朱良栋正-1.png)
      summary(degree(g.ba))
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    1.00    1.00    1.00    1.98    2.00    9.00
-
   (五）性质
   1、并可以初步观察到它的节点度大致为幂律分布，即总体分布上具有很强异质性，符合无标度网络的一般特征：大部分节点的连接度较小，少部分节点具有很高的连接度，出现枢
   纽节点。
