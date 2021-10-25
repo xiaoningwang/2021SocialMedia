@@ -79,6 +79,8 @@ membership(ebc)
 dendPlot(ebc, mode="hclust")
 ```
 
+![图1](figure/xxy_1.png)
+
 ### 2.通过GN算法进行社区发现
 
 GN算法通过从网络中不断移除介数最大的边，使每个节点变成退化的社区。
@@ -99,6 +101,8 @@ edge.betweenness(graph.formula(1-6))
 plot(ebc,g) 
  
 ```
+
+![图2](figure/xxy_2.png)
 
 ### 3.输出模块度
 
