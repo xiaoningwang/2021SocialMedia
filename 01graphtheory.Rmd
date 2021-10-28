@@ -78,9 +78,9 @@ library(igraph)
 vn<-12
 rownames<-letters[1:vn]
 colnames<-letters[1:vn]
-adjacency_matrix=matrix(0,vn,vn,byrow=T,dimnames=list(rownames,colnames))            #创建邻接矩阵
-adjacency_matrix_k=matrix(0,vn,vn,byrow=T,dimnames=list(rownames,colnames))          #创建k子树邻接矩阵
-adjacency_matrix_p=matrix(0,vn,vn,byrow=T,dimnames=list(rownames,colnames))          #创建p子树邻接矩阵
+adjacency_matrix=matrix(0,vn,vn,byrow=T,dimnames=list(rownames,colnames))            
+adjacency_matrix_k=matrix(0,vn,vn,byrow=T,dimnames=list(rownames,colnames))          
+adjacency_matrix_p=matrix(0,vn,vn,byrow=T,dimnames=list(rownames,colnames))          
 link <- function(x,y,w){#构建邻接矩阵与子节点矩阵
   adjacency_matrix[x,y]<<-w
   adjacency_matrix[y,x]<<-w
@@ -100,7 +100,7 @@ link(e,f,4);link(f,g,3);link(g,h,3)
 link(e,i,4);link(f,j,2);link(g,k,4);link(g,l,3)
 link(i,j,3);link(j,k,3);link(k,l,1)
 print(adjacency_matrix)
-myg=graph.adjacency(adjacency_matrix,mode = "undirected",weighted = TRUE)  #创建图
+myg=graph.adjacency(adjacency_matrix,mode = "undirected",weighted = TRUE) 
 myl <-layout.reingold.tilford(myg)
 myl[a,]=c(0,2);myl[b,]=c(1,2);myl[c,]=c(2,2);myl[d,]=c(3,2)
 myl[e,]=c(0,1);myl[f,]=c(1,1);myl[g,]=c(2,1);myl[h,]=c(3,1)
@@ -152,7 +152,7 @@ Prim()
 ![生成树生成步骤](figure/lxz_figure13.png)
 
 
-myg_p=graph.adjacency(adjacency_matrix_p,mode = "undirected",weighted = TRUE)  #创建图
+myg_p=graph.adjacency(adjacency_matrix_p,mode = "undirected",weighted = TRUE)
 E(myg_p)$width=E(myg_p)$weight
 plot.igraph(myg_p,layout=myl,main="Prim",edge.label = E(myg_p)$weight)
 print("Adjacency Matrix for Prim:")
@@ -220,7 +220,7 @@ Kruskal()
 ![Kruskal最终生成树](figure/lxz_figure17.png)
 
 Sys.sleep(1)
-myg_k=graph.adjacency(adjacency_matrix_k,mode = "undirected",weighted = TRUE)  #创建图
+myg_k=graph.adjacency(adjacency_matrix_k,mode = "undirected",weighted = TRUE) 
 E(myg_k)$width=E(myg_k)$weight
 plot.igraph(myg_k,layout=myl,main="Kruskal",edge.label = E(myg_k)$weight)
 print("Adjacency Matrix for Kruskal:")
