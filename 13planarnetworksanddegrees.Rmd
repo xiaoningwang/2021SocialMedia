@@ -1,0 +1,142 @@
+---
+title: '社会媒体分析'
+author: "叶祉忻"
+date: "2021/10/20"
+output: word_document
+---
+
+# 平面网络和度
+
+# 一、简介
+
+## （一）平面网络（Planar networks）
+
+  平面网络是网络的一种类型，是一种可以将网络结构绘制在平面上，而没有任何边交叉的网络。平面网络使各条支路除了端点以外，不与其他支路相交。
+  
+  在平面网络图中，边是有向的是指存在一条从顶点i指向顶点j的边（i，j）。但并不意味着一条从顶点j指向顶点i的边（j，i）一定存在。而对于有向边（i，j），顶点i称为始点，顶点j称为终点。边是有权的是指网络中的每条边都赋有相应的权值，以表示相应的两个节点之间的联系的强度。
+
+1、无权无向图：无权无向图中的边是无向的、无权的。
+
+2、无权有向图：无权有向图中的边是有向的、无权的。
+
+3、有权无向图：有权无向图中的边是有向的、无权的。
+
+4、有权有向图：有权有向图中的边是有向的、有权的。
+
+## （二）度（Degree）
+
+1、度与平均度
+
+  度是用来刻画单个节点属性的概念。
+
+  无向网络中节点的度$k_i$定义为与节点直接相连的边的数目。对于没有自环和重边的简单图，节点i的度$k_i$也是与节点i直接有边连接的其他节点的数目。网络中所有节点的度的平均值称为网络的平均度（Average degree），记为<k>。
+
+  给定网络G的邻接矩阵$A=(a_{ij})_{N\times N}$，我们有
+  
+  $k_i=\sum_{j=1}^N a_{ij}=\sum_{j=1}^N a_{ji}$.
+  
+  $<k>=\frac{1}{N}\sum_{i=1}^N k_i=\frac{1}{N}\sum_{i,j=1}^N a_{ij}$.
+  
+  网络节点的度与网络边数M之间有如下关系：
+  
+  $2M=N<k>=\sum_{i=1}^N k_i=\sum_{i,j=1}^N a_{ij}$，
+  
+亦即有
+
+  $M=\frac{1}{2}N<k>=\frac{1}{2}\sum_{i=1}^N k_i=\frac{1}{2}\sum_{i,j=1}^N a_{ij}$，
+  
+  $<k>=\frac{2M}{N}$.
+  
+2、出度与入度
+
+  有向网络中节点的度包括出度（Out-degree）和入度（In-degree）。节点i的出度$k^{out}_i$是指从节点i指向其他节点的边的数目，节点i的入度$k^{in}_i$是指从其他节点指向节点i的边的数目。
+  
+  节点的出度和入度也可以通过邻接矩阵的元素来表示：
+  
+  $k^{out}_i=\sum_{j=1}^N a_{ij}$，$k^{in}_i=\sum_{j=1}^N a_{ji}$.
+  
+  在有向网络中，尽管单个节点的出度和入度可能并不相同，网络的平均出度$<k^{out}>$和平均入度$<k^{in}>$却是相同的。即有
+  
+  $<k^{out}>=<k^{in}>=\frac{1}{N}\sum_{i,j=1}^N a_{ij}=\frac{M}{N}$.
+  
+  这代表了一类复杂系统的一个重要特性：对于系统中每个个体而言不一定成立的性质，却会在整个系统的层面上成立。
+  
+  对于加权网络而言，度的概念可以用，还可以定义节点的强度（Streangth）。给定一个包含N个节点的加权网络G及其权值矩阵$W=(w_{ij})$，如果G是无向加权网络，那么节点i的强度定义为
+  
+  $s_i=\sum_{j=1}^N w_{ij}$.
+  
+  如果G是有向加权网络，节点i的出强度（Out-strength）和入强度（In-strength）分别定义为
+  
+  $s_i^{out}=\sum_{j=1}^N w_{ij}$，$s_i^{in}=\sum_{j=1}^N w_{ji}$.
+  
+3、中心度指标
+
+（1）点度中心度：在某个点上连接的线的数目，强调某点单独的价值。点度中心度又分为点出度、点入度、相对点中心度、点度频率四个部分。而点度中心度是由相对中心度和绝对中心度组成的。绝对中心度中，有向图中有点出度、点入度之分。相对中心度中，相对点中心度=绝对点中心度/最大度数。
+
+（2）接近中心度：该点与网络中其他点距离之和的倒数，接近中心度越大说明该带你离中心越近，越能够很快到达其他点，强调点在网络的价值。接近中心度由点出度、点出度、相对接近中心度三个部分组成。
+
+（3）中间中心度：代表最短距离是否都经过该点，如果都经过说明这个点很重要，其中包括线的中心度。强调点在其他点之间调节能力，控制能力指数，中介调节效应。中间中心度由点的中心度以及线的中心度组成。中心度可以说明哪些点、线中介效应最强。点的中心度代表最短距离是否都经过该点，如果都经过说明这个点很重要。中间中心度由点出度、点入度、相对中间中心度三个部分组成。
+
+（4）特征向量中心度：根据相邻点的重要性来衡量该点的价值，首先计算邻接矩阵，然后计算邻接矩阵的特征向量。强调点在网络中的价值，并且比接近中心度厉害的是，点价值是根据近邻点来决定的。
+
+# 二、代码及图解
+
+## （一）平面网络（Planar networks）
+
+```{r}
+#导入igraph包
+library(igraph)
+#生成一个节点为1,2,3,4,5的无权无向平面网络图
+g <- graph(c(1,2,1,3,1,4,1,5,2,3,2,4,2,5,3,4,3,5,4,5),directed = FALSE)
+plot(g)
+#生成一个节点为1,2,3,4,5的无权有向平面网络图
+h <-graph(c(1,2,2,3,3,4,4,5,5,1),directed = TRUE)
+plot(h)
+#生成一个节点为1,2,3,4,5的加权无向平面网络图
+g <- graph(c(1,2,1,3,1,4,1,5,2,3,2,4,2,5,3,4,3,5,4,5),directed = FALSE)
+graph_attr(g,'weight') <-c(1,2,3,4,5,6,7,8,9,10)
+plot(g,edge.label=graph_attr(g,'weight'))
+#生成一个节点为1,2,3,4,5的加权有向平面网络图
+h <-graph(c(1,2,2,3,3,4,4,5,5,1),directed = TRUE)
+graph_attr(h,'weight') <-c(1,2,3,4,5)
+plot(h,edge.label=graph_attr(h,'weight'))
+```
+
+## （二）度（Degree）
+
+```{r}
+#导入igraph包
+library(igraph)
+#求无向平面网络图的度
+g <- graph(c(1,2,1,3,1,4,1,5,2,3,2,4,2,5,3,4,3,5,4,5),directed = FALSE)
+degree(g,mode="total") #求点度中心度
+degree(g,normalized=T) #求相对点中心度
+degree.distribution(g) #求点度频率
+closeness(g,vids=which(V(g)$label=="c")) #求接近中心度
+degree(g,normalized=T) # 求相对接近中心度
+betweenness(g,normalized=T) #求点的中心度
+betweenness(g,V(g)$label=="c") #求点的中间中心度
+edge.betweenness(g) #求线的中间中心度
+edge.betweenness(g,e=E(g,path=c(which(V(g)$label=="a"),which(V(g)$label=="c")))) #返回线的中间中心度
+evcent(g,scale=F)$vector #求点的特征向量中心度
+#求有向平面图的度
+h <-graph(c(1,2,2,3,3,4,4,5,5,1),directed = TRUE)
+degree(h,mode="in") #求点度入度
+degree(h,mode="out") #求点度出度
+degree(h,mode="total") #求点度中心度
+degree(h,normalized=T) #求相对点中心度
+degree.distribution(h) #求点度频率
+closeness(h,vids=which(V(h)$label=="c")) #求接近中心度
+degree(h,normalized=T) # 求相对接近中心度
+betweenness(h,normalized=T) #求点的中心度
+betweenness(h,V(h)$label=="c") #求点的中间中心度
+edge.betweenness(h) #求线的中间中心度
+edge.betweenness(h,e=E(h,path=c(which(V(h)$label=="a"),which(V(h)$label=="c")))) #返回线的中间中心度
+evcent(g,scale=F)$vector #求点的特征向量中心度
+```
+
+# 三、参考文献
+
+[1]Networks in introduction——M.E.J.Newman
+
+[2]网络科学导论[M].2012——汪小帆，李翔，陈关荣
