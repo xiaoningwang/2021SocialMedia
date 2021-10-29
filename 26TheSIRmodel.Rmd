@@ -20,22 +20,22 @@ SIR模型的动力学过程主要分为接触和移除两个阶段。
 
 在第一阶段中，假设易感个体S在与被感染个体I接触时以平均速率β发生病毒感染。第二阶段，受感染的个体I以平均速率γ进行R阶段---恢复或死亡。当γ值确定时，假设每个受感染个体在恢复前依然患病的时间τ。则在一段时内恢复的δτ概率为γδτ，不恢复的概率为1-γδτ。
 假设s,i,t分别为三个状态下的个体比例，且满足s+i+r=1.则SIR模型的微分方程如下：
-\[ \frac{\text{d}s}{\text{d}t}=- \beta si\]
-\[ \frac{\text{d}i}{\text{d}t}= \beta si- \gamma i\]
-\[ \frac{\text{d}r}{\text{d}t}= \gamma i\]
+$$ \frac{\text{d}s}{\text{d}t}=- \beta si$$
+$$ \frac{\text{d}i}{\text{d}t}= \beta si- \gamma i$$
+$$ \frac{\text{d}r}{\text{d}t}= \gamma i$$
 通过1、3两式解方程得到：
-\[ \frac{1}{s}\frac{\text{d}i}{\text{d}t}=- \frac{ \beta }{ \gamma }\frac{\text{d}r}{\text{d}t}\]
+$$ \frac{1}{s}\frac{\text{d}i}{\text{d}t}=- \frac{ \beta }{ \gamma }\frac{\text{d}r}{\text{d}t}$$
 接着两边积分可得：
-\[ s=s_0e^{-\frac{ \beta r}{ \gamma }}\]
+$$ s=s_0e^{-\frac{ \beta r}{ \gamma }}$$
 其中s0是t=0时s的值.
 代入i=1-s-r可得：
-\[ \frac{\text{d}r}{\text{d}t}= \gamma （1-r-s_0e^{-\frac{ \beta r}{ \gamma }})\]
+$$ \frac{\text{d}r}{\text{d}t}= \gamma （1-r-s_0e^{-\frac{ \beta r}{ \gamma }})$$
 其解如下：
-\[ t= \frac{1}{ \gamma }\int_{0}^{r} \frac{1}{1-x-s_0e^{-\frac{ \beta r}{ \gamma }}}dx\]
+$$ t= \frac{1}{ \gamma }\int_{0}^{r} \frac{1}{1-x-s_0e^{-\frac{ \beta r}{ \gamma }}}dx$$
 令dr/dt=0得到移除人数的稳态值：
-\[r=1-s_0e^{-\frac{ \beta r}{ \gamma }}\]
+$$r=1-s_0e^{-\frac{ \beta r}{ \gamma }}$$
 记λ=β/γ,则最终的r值满足：
-\[r=1-e^{- \lambda r}\]
+$$r=1-e^{-\lambda r}$$
 
 ## 代码实现
 下面进行一个模拟扩散的过程。
