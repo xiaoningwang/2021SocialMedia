@@ -11,7 +11,7 @@ output: word_document
 
 # 二.同配性和异配性
 仅仅凭借它们拥有的众多链接，集线器就有望相互链接。在一些网络中，它们会，在另一些则不会。如图7.3所示，它展示了三种程度序列相同但拓扑结构不同的网络:
-![avatar](C:/Users/TYXX/Pictures/dcy_figure1.jpg)
+![Github](https://github.com/xiaoningwang/2021SocialMedia/blob/main/figure/dcy_figure1.jpg)
 ## 神经网络
 图7.3b显示了一个随机布线的网络。我们称这种网络为中立的，这意味着枢纽之间的链接数量与我们的预期是一致的。
 
@@ -41,7 +41,7 @@ $$e_{ij}=q_iq_j$$(5)
 # 三.测量度相关性
 虽然eij包含了描述一个特定网络的度相关性的完整信息，但是很难解释它的内容。本节将介绍度相关函数，它提供了量化度相关性的一种更简单的方法。
 度相关性捕获了相互连接的节点度之间的关系。量化它们大小的一种方法是测量每个节点i的邻居的平均度(图7.5)
-![avatar](C:/Users/TYXX/Pictures/dcy_figure2.jpg)
+![Github](https://github.com/xiaoningwang/2021SocialMedia/blob/main/figure/dcy_figure2.jpg)
 $$k_{nn}(k_i)=\frac{1}{k_i}\sum_{j=1}^N A_{ij}k_j$$(6)
 度相关函数计算所有k度节点的(6)
 $$k_{nn}(k)=\sum_{k'} k'P(k'|k)$$(7)
@@ -56,7 +56,7 @@ $$k_{nn}(k)=\sum_{k'} k'q_{k'}=\sum_{k'} k'\frac{k'p(k')}{<k>}=\frac{k^2}{<k>}$$
 
 ## 同配型网络
 在同配络中，集线器倾向于连接到其他集线器，因此，节点的k度越高，其最近邻的平均度就越高。因此，对于同配性网络，knn(k)随着k的增加而增加，正如在科学合作网络中观察到的那样(图7.6a)。
-![avatar](C:/Users/TYXX/Pictures/dcy_figure3.jpg)
+![Github](https://github.com/xiaoningwang/2021SocialMedia/blob/main/figure/dcy_figure3.jpg)
 ## 异配型网络
 在异配型网络中，集线器更喜欢连接到低程度的节点。因此，正如代谢网络所观察到的那样，knn(k)随k减少(图7.6c)。
 图7.6中观察到的行为提示我们用近似度相关函数
@@ -75,7 +75,7 @@ $$k_{nn}(k)=ak^μ$$(10)
 
 # 四.真实网络中的相关性
 为了理解度相关性的普遍性，我们需要检查描述真实网络的相关性。在图7.10中，我们给出了10个参考网络的knn(k)函数，观察到几种模式:
-![avatar](C:/Users/TYXX/Pictures/dcy_figure4.jpg)
+![Github](https://github.com/xiaoningwang/2021SocialMedia/blob/main/figure/dcy_figure4.jpg)
  ## 电网
 
 对于电网来说，knn(k)是扁平的，与它的随机版本难以区分，表明缺乏度相关性(图7.10a)。因此电网是中性的。
@@ -167,11 +167,11 @@ $$k_{nn}(k)\approx(m+A)ln(\frac{k}{m+A})$$(15)
 ### Bianconi-Barabasi模型
 
 在适应度分布一致的情况下，Bianconi-Barabási模型生成一个非协调性网络(图7.12)。网络的随机化版本也是非协调性的事实表明模型的非协调性是结构性的。然而，需要注意的是，实knn(k)和随机knnR-S(k)不重叠，这表明模型的不协调性不能完全用其无标度的性质来解释。
-![avatar](C:/Users/TYXX/Pictures/dcy_figure5.jpg)
+![Github](https://github.com/xiaoningwang/2021SocialMedia/blob/main/figure/dcy_figure5.jpg)
   ## 优化度相关性
 
 有几种算法可以生成具有所需度相关性的网络。接下来我们讨论Xalvi-Brunet和Sokolov提出的算法的简化版本，该算法旨在生成具有预定义程度序列的最大关联网络。它包括以下步骤(图7.13a):
-![avatar](C:/Users/TYXX/Pictures/dcy_figure6.jpg)
+![Github](https://github.com/xiaoningwang/2021SocialMedia/blob/main/figure/dcy_figure6.jpg)
   ### 步骤1:链接选择
 
 随机选择两个链接。将这两个链路末端的四个节点分别标记为a、b、c、d，其度排序为$$ka≥kb≥kc≥kd$$。
@@ -202,7 +202,7 @@ $$k_{nn}(k)\approx(m+A)ln(\frac{k}{m+A})$$(15)
 如图7.10所示，大多数真实网络都具有一定程度的相关性。社交网络是选择性的;生物网络表现出结构的非协调性。这些相关性提出了一个重要的问题:我们为什么在乎?换句话说，度相关性会改变网络的属性吗?它们会影响哪些网络属性?本节将讨论这些重要的问题。
 
 随机网络的一个重要属性是在$$⟨k⟩=1$$出现阶段转变，标志着巨大组件的出现。图7.15显示了具有不同程度相关性的网络的巨大分量的相对大小，记录了几种模式:
-![avatar](C:/Users/TYXX/Pictures/dcy_figure7.jpg)
+![Github](https://github.com/xiaoningwang/2021SocialMedia/blob/main/figure/dcy_figure7.jpg)
  ## 同配型网络
 
 对于选型网络，阶段转换点移动到较低的⟨k⟩，因此对于$$⟨k⟩<1$$出现一个巨大组件。原因是，如果高度节点相互寻找，就更容易启动大型组件。
@@ -222,7 +222,7 @@ $$k_{nn}(k)\approx(m+A)ln(\frac{k}{m+A})$$(15)
 ## 这里提一下度相关性的其他一些后果:
 
 ### 图7.16显示了一个重新布线的随机网络的路径长度分布，以显示不同程度的相关性。这表明在协调性网络中，平均路径长度比在中性网络中短。最显著的区别是网络直径dmax，它在选型网络中明显更高。实际上，协调性更倾向于相似程度的节点之间的链接，导致k=2个节点的长链，提高了dmax(图7.13c)。
-![avatar](C:/Users/TYXX/Pictures/dcy_figure8.jpg)
+![Github](https://github.com/xiaoningwang/2021SocialMedia/blob/main/figure/dcy_figure8.jpg)
 ### 度相关性影响系统对刺激和扰动的稳定性，以及放置在网络上的振荡器的同步。
 
 ### 度相关性对顶点覆盖问题有基本影响，是图论中研究较多的问题，要求我们找到最小节点集(覆盖)，使每个链接至少连接到覆盖中的一个节点。
@@ -235,7 +235,7 @@ $$k_{nn}(k)\approx(m+A)ln(\frac{k}{m+A})$$(15)
 度相性关最早是在2001年由Romualdo Pastor-Satorras、Alexei Vazquez和Alessandro Vespignani在互联网环境下发现的，他们还引入了度相关函数knn(k)和尺度(10)。一年后Kim Sneppen和SergeyMaslov使用与eij矩阵相关的完整p(ki,kj)来表征蛋白相互作用网络度相关性。2003年MarkNewman引入了度相关系数，并引入了选型、中性和非选型的区别。这些术语起源于社会科学:
 
 选型交配反映了个体与相似的个体约会或结婚的倾向。例如，低收入者和低收入者结婚，大学毕业生和大学毕业生结婚。网络理论以同样的精神使用协调性，捕捉节点之间基于程度的相似性:在协调性网络中，枢纽倾向于连接到其他枢纽，小度节点连接到其他小度节点。在网络环境中，当具有相似属性的节点相互链接时，我们还会遇到传统的协调性(图7.18)。
-![avatar](C:/Users/TYXX/Pictures/dcy_figure9.jpg)
+![Github](https://github.com/xiaoningwang/2021SocialMedia/blob/main/figure/dcy_figure9.jpg)
 在某些社会和经济体系中，当个体与不同个体相结合时，异化混合也很常见。性网络也许是最好的例子，因为大多数性关系发生在不同性别的个体之间。在经济环境中，贸易通常发生在不同技能的个人之间:面包师不把面包卖给其他面包师，鞋匠也很少给其他鞋匠修鞋。
 
 综上所述，我们关注网络中的学历相关性有以下几个原因:
@@ -267,7 +267,7 @@ $$k_{nn}(k)~rk$$(16)
 μ与r的关系
 
 在正方，r和μ不是相互独立的。为了说明这一点，我们计算了10个参考网络的r和μ(表7.1)。结果绘制在图7.20中，表明μ和r在r为正的情况下相互关联。然而，请注意，当r为负时，这种关联就消失了。接下来，我们推导了μ和r之间的直接关系。具体来说，我们假设(10)的有效性，并确定了r的值对一个具有相关指数μ的网络。
-![avatar](C:/Users/TYXX/Pictures/dcy_figure10.jpg)
+![Github](https://github.com/xiaoningwang/2021SocialMedia/blob/main/figure/dcy_figure10.jpg)
  我们从(10)确定a开始。我们可以把度分布的二阶矩写成
 $$<k^2>=<k_{nn}(k)k>=\sum_k ak^{μ+1}p_k=a<k^{μ+1}>$$
 导致
@@ -287,7 +287,7 @@ $$μ > 0→r > 0$$
 ### 针对网络
 
 为了测量有向网络中的相关性，我们必须考虑到每个节点i都有一个输入的ki和一个输出的ki。因此我们定义了四度相关系数rin,in，rin,out,rout,in,rout,out，捕获两个连接节点的进出线度之间的所有可能的组合(图7.21a-d)。形式上是
-![avatar](C:/Users/TYXX/Pictures/dcy_figure11.jpg)
+![Github](https://github.com/xiaoningwang/2021SocialMedia/blob/main/figure/dcy_figure11.jpg)
  $$r_{α,β}=\frac{\sum_{jk} jk(e_{jk}^{α,β}-q_{←j}^α)q_{→k}^β)}{σ_←^ασ_→^β}$$(18)
 其中α,β为进、出指标，q←jα为向后跟随随机链接找到α←j度节点的概率，q→kβ为向前跟随随机链接找到k度β链接的概率。σ←α和σ→β为对应的标准差。为了说明(18)的使用，在图7.21e中，我们展示了五个有向参考网络的四个相关系数(表7.1)。然而，请注意，为了得到度相关性的完整表征，最好也测量四个knn(k)函数。
 
