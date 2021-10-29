@@ -216,6 +216,9 @@ legend("topleft",c("lambda = 0.27 mu = 0.1","lambda = 0.25 mu = 0.1","lambda = 0
        col = c("red","orange","yellow","green","blue"),lty = 1,bty = "n")
 ```
 
+生成图片如下：
+
+![图片](figure/MJY_3.png)
 
 # 四、参考文献
 
