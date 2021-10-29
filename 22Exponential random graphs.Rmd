@@ -1,0 +1,72 @@
+022Exponential random graphs.Rmd
+---
+title: "指数随机图模型"
+author: "邵佳钰"
+date: "2021/10/29"
+output: word_document
+---
+
+##定义
+  指数随机图的定义假设我们要创建一个具有给定属性的网络集合，比如给定数量的边或给定集聚系数。
+  我们可以像普通的随机图模型那样，通过从所有网络的集合中确定所感兴趣的数量或数量的绝对值，然后统一地确定它们的值。
+  例如，如果我们统一地从所有边数给定的图的集合中得到g(n，m)随机图模型。
+  然而，在很多情况下，这种方法并不是我们想要的。因此，通常更好的方法是确定利息财产或属性的平均值。
+  此外，我们可以安排边数接近期望值的网络在集合中的概率比远离期望值的网络更高，因此集合被具有接近期望值特性的网络所支配。
+  指数随机图提供了达到这些目标的优雅方法。在一些情况下，我们对指数随机图只是作为一类模型而感兴趣。
+  也就是说，我们关心的不是模型对于一组特定值{βi}的性质，而是模型的一般行为。在这种情况下，我们可以把βi看作控制网络结构的自由参数，就像边概率p控制泊松随机图的网络结构一样。
+  指数随机图模型使我们能够回答这样的问题”如果我知道关于一个网络的a，b和c的某些事情，我对其他事情d的最佳估计是什么?”
+  例如，如果我知道网络中一个顶点的平均度，我对度分布的最佳估计是多少？还是集聚系数？指数随机图给出了这类问题严谨而有原则的答案。
+    
+##举例
+  随机图可以看作是更一般的指数型随机图模型的一个特例。
+  随机图在许多方面都是真实世界网络的一个糟糕模型。特别是，它的度分布是泊松的，因此与大多数观测网络中的高右偏度分布有很大的不同。
+  因此，人们自然会问，我们是否可以建立一个指数随机图模型，使其具有更加现实的分布程度。
+  有很多方法可以做到这一点，但是最简单的方法之一就是创建一个模型，在这个模型中我们指定合奏中每个顶点的期望度。也就是说，我们用哈密顿函数建立了一个指数随机图模型。
+  
+  现在转向一些更复杂的指数随机图的例子，这些例子与我们已经看到的模型不同。
+  我们看到的第一个例子是holland和leinhardt提出的”互惠模型”。许多有向网络表现出互惠现象，即顶点之间的边倾向于互惠。
+  比如说，如果我说你是我的朋友，那么很可能你也会说我是你的朋友。我们可以通过在网络中固定互反边的期望数来建立互反性的指数随机图模型。
+
+##发展
+(1) 简单随机图模型(simple random graph models)
+(2) 二元独立性模型(dyadic independence models)
+(3) 二元依赖性模型(dyadic dependence models)
+(4) 高序依赖性模型(higher-order dependence models)
+
+##优点
+  1.包括更多更丰富的网络局部特征（local features）和相关性(dependencies)-不仅是cluster,三元组，而是细小到clique，isolate node。
+  2. 方便统计估计 - 随机指数家族有良好的统计性质
+  
+##代码实现
+```{r}
+library(MASS)
+set.seed(100)
+m < -  3
+n < -  2000
+sigma< - matrix(c(1,0.4,0.2,0.4,1,-0.8,0.2,-0.8,1),nrow = 3)
+z < -  mvrnorm(n,mu = rep(0,m),Sigma = sigma,empirical = T)
+u< -  pnorm(z)
+pairs.panels(u)
+cor(z,method = 'spearman')
+pairs.panels(z)
+library(rgl)
+plot3D format(u[1],u[2],u[1,3],PCH = 20,column= 'navyblue')
+x1 < -qgamma(u [,1],shape = 2,scale = 1)
+x2 < -qbeta(u [,2],2,2)
+x3 < -qt(u [,3],df = 5)
+plot3D format(x1,X2,X3,PCH = 20，column= '蓝'）
+df < -  cbind(x1,x2,x3)
+pairs.panels(df)
+cor(df,method = 'spearman')
+library(copula)
+set.seed(100)
+myCop < -  normalCopula(param = c(0.4,0.2,-0.8),dim = 3,dispstr ="un")
+myMvd < -  mvdc(copula = myCop,margin = c("gamma","beta","t"),paramMargins = list(list(shape = 2,scale = 1),list(shape1 = 2,shape2 = 2),list(df = 5)))
+z2 < -  rmvdc(myMvd,2000)
+colnames(z2)< -  c（"x1","x2","x3")
+pairs.panels(z2)
+```
+
+
+[1]Zafarani R.,Abbasi M.A.,Liu H, - Social Media Mining_ An Introduction-CUP,2014
+[2]R语言网络数据分析,ronghuilin,2016-10-17
