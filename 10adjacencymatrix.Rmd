@@ -98,4 +98,5 @@ plt.show()
 # （五）参考文献
 
 [1]Albert-Laszlo Barabasi.Network Science[M].2014:11-12
+
 [2]M.E.J.newmanNetworks an introduction[M].2010
