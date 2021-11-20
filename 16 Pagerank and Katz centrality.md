@@ -1,4 +1,4 @@
-# PageRank & Katz 中心
+# Pagerank and Katz centrality
 ###### 赵霖琳 2020213053032
 
 ### （一）中心性知识补充：
@@ -394,7 +394,7 @@ show_graph(small_graph, 'circular_layout')
 
 [1] Networks: An Introduction
 
-[2] 网络科学导论
+[2] 汪小帆，李翔，陈关荣，《网络科学导论》。
 
 [3] [Katz Centrality (Centrality Measure)]([Katz Centrality (Centrality Measure) - GeeksforGeeks](https://www.geeksforgeeks.org/katz-centrality-centrality-measure/))
 
