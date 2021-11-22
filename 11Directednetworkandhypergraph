@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ![](figure/LJY1.png)
 
 例如，图一小网络的邻接矩阵为：
-![](figure\LJY2.png)
+![](figure/LJY2.png)
 
 （3）注意
 像无向网络一样,有向网络可以有多重边和自边,它们分别用大于1的元素和非零对角元素在邻接矩阵中表示。然而,有向网络中的自边是通过将邻接矩阵的对角元素设为1来表示的,而不是像无向网络中的自边是2。
@@ -32,7 +32,7 @@ knitr::opts_chunk$set(echo = TRUE)
 有向网络中的环是由边组成的闭合环路,每个边上的箭头指向环路的同一方向。然而,有些有向网络没有环,这些被称为无环网络。
 注意：一条自边即一条连接顶点和自身的边——被认为是一个循环,因此一个非循环网络也没有自边。
 如图3：
-![](figure\LJY3.png)
+![](figure/LJY3.png)
 
 （2）举例：
 非循环有向网络的经典例子是论文的引用网络,当你写一篇论文时,你只能引用另一篇已经写过的论文,这意味着在一个引文网络中,所有的有向边都指向时间上的倒退。
@@ -62,7 +62,7 @@ plot(g, layout=layout.fruchterman.reingold,edge.color = grey(0.4),edge.arrow.mod
      vertex.color = V(g)$color)
 ```
 代码如图：
-![](figure\LJY5.png)
+![](figure/LJY5.png)
 
 ```{r}
 rm(list=ls())
@@ -86,7 +86,7 @@ arrange(df,desc(PageRank))
 
 ```
 代码如图：
-![](figure\LJY6.png)
+![](figure/LJY6.png)
 
 ## 三、超图
 （1）定义
@@ -100,7 +100,7 @@ arrange(df,desc(PageRank))
 例如：可以表示超图H与一组顶点$V={v1…v6}$和边缘家族
 $E={E1={v1}, E2={v1,v3}, E3={v1,v2,v3},E4=E5={v2,v4}, E6={v3,v4,v5},E7=∅}$
 如图4所示：
-![](figure\LJY4.png)
+![](figure/LJY4.png)
 
 ##四、参考文献
 [1]Albert-Laszlo Barabasi.Network Science[M].2014
@@ -108,4 +108,3 @@ $E={E1={v1}, E2={v1,v3}, E3={v1,v2,v3},E4=E5={v2,v4}, E6={v3,v4,v5},E7=∅}$
 [2]汪小帆，李翔，陈关荣.网络科学导论[M].2012
 
 [3]维基百科 https://encyclopediaofmath.org/wiki/Hypergraph
-
