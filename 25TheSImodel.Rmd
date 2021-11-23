@@ -1,7 +1,7 @@
 ---
 title: "SI模型"
 author: "陈思源"
-date: "2021/9/17"
+date: "2021/11/23"
 output: word_document
 ---
 
@@ -126,5 +126,12 @@ legend("topleft",c("rio=0.3","rio=0.25","rio=0.2","rio=0.15","rio=0 .12"),
        col=c("red","blue","green","orange","black"),
        lty=1,bty="n")
 ```
+![simodel](https://github.com/chan-siyuan/2021SocialMedia/blob/main/figure/si.png)
 
 从上图可以看出，SI模型对参数rio非常敏感。因而只要能够把每个病人每天接触的人数有效降低，传染病的传染速度就会变得非常慢，这也就意味着，只要防疫力度够大，控制住传染病是完全可能的。
+
+# 4. 参考文献
+
+[1] M.E.J.Newman.Networks An Introduction[M].Oxford University Press, USA:2010-05-20
+
+[2] 汪小帆,李翔,陈关荣.网络科学导论[M].高等教育出版社:2012-4
