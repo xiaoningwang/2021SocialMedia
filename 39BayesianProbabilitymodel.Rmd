@@ -132,7 +132,7 @@ library(gmodels)
 CrossTable(emails_predict,email_words_test$type)
 #分类效果可视化
 ```
-![](figure/img.png)
+![](figure/yuanyi_1.png)
 由上图可知，926条非垃圾邮件中有14条被误分为垃圾邮件，占比1.5％。1464条垃圾邮件中有1295条被正确分类，占比88.5％。由此可知，运用贝叶斯概率模型来对垃圾邮件进行区分能够取得良好的效果。
 
 
